@@ -16,4 +16,4 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Debug GildedRose/GildedRose.sln
     - name: Test
-      run: dotnet test GildedRose.Tests/GildedRose.Tests.sln
+      run: dotnet test GildedRose.Tests/GildedRose.Tests.csproj
