@@ -28,7 +28,7 @@ namespace GildedRose
                 {
                     if (item.Quality < 50)
                     {
-                        item.Quality = item.Quality + 1;
+                        IncrementQuality(item);
 
                         if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
@@ -72,7 +72,7 @@ namespace GildedRose
                         }
                         else
                         {
-                            item.Quality = item.Quality - item.Quality;
+                            item.Quality = 0;
                         }
                     }
                     else
