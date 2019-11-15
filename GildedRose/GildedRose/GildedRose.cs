@@ -2,6 +2,90 @@ using System.Collections.Generic;
 
 namespace GildedRose
 {
+    public class Sulfuras : BaseItem, IItemBehaviour
+    {
+        public Sulfuras(Item item)
+        {
+            Item = item;
+        }
+
+        public void Iterate()
+        {
+        }
+    }
+
+    public class BackstagePass : BaseItem, IItemBehaviour
+    {
+        public BackstagePass(Item item)
+        {
+            Item = item;
+        }
+
+        public void Iterate()
+        {
+            IncrementQuality(Item);
+            
+            if (AreLessThan10DaysLeft(Item))
+            {
+                IncrementQuality(Item);
+            }
+
+            if (AreLessThan5DaysLeft(Item))
+            {
+                IncrementQuality(Item);
+            }
+
+            DecreaseSellIn(Item);
+
+            if (SellByDateHasPassed(Item))
+            {
+                Item.Quality = 0;
+            }
+        }
+    }
+
+    public class DefaultItem : BaseItem, IItemBehaviour
+    {
+        public DefaultItem(Item item)
+        {
+            Item = item;
+        }
+
+        public void Iterate()
+        {
+            DecrementQuality(Item);
+            
+            DecreaseSellIn(Item);
+
+            if (SellByDateHasPassed(Item))
+            {
+                DecrementQuality(Item);
+            }
+        }
+    }
+
+    public class AgedBrie : BaseItem, IItemBehaviour
+    {
+        public AgedBrie(Item item)
+        {
+            Item = item;
+        }
+
+        public void Iterate()
+        {
+            IncrementQuality(Item);   
+            
+            DecreaseSellIn(Item);
+
+            if (SellByDateHasPassed(Item))
+            {
+                IncrementQuality(Item);
+            }
+        }
+        
+        public override string ToString() => Item.ToString();
+    }
+    
     public class GildedRose
     {
         IList<Item> Items;
@@ -14,95 +98,9 @@ namespace GildedRose
         {
             foreach (var item in Items)
             {
-                if (IsAgedBrie(item) || IsBackstagePass(item))
-                {
-                    IncrementQuality(item);
-
-                    if (IsBackstagePass(item))
-                    {
-                        if (AreLessThan10DaysLeft(item))
-                        {
-                            IncrementQuality(item);
-                        }
-
-                        if (AreLessThan5DaysLeft(item))
-                        {
-                            IncrementQuality(item);
-                        }
-                    }
-                }
-                else
-                {
-                    DecrementQuality(item);
-                }
-
-                if (IsNotSulfuras(item))
-                {
-                    DecreaseSellIn(item);
-                }
-
-                
-                if (SellByDateHasPassed(item))
-                {
-                    if (IsAgedBrie(item))
-                    {
-                        IncrementQuality(item);
-                    }
-                    else
-                    {
-                        if (IsBackstagePass(item))
-                        {
-                            item.Quality = 0;
-                        }
-                        else
-                        {
-                            DecrementQuality(item);
-                        }
-                    }
-                }
+                var concreteItem = ItemFactory.ToConcreteItem(item);
+                concreteItem.Iterate();
             }
-        }
-
-        private static bool IsBackstagePass(Item item) => item.Name == "Backstage passes to a TAFKAL80ETC concert";
-
-        private static bool IsNotSulfuras(Item item) => item.Name != "Sulfuras, Hand of Ragnaros";
-
-        private static bool IsNotBackstagePass(Item item) => !IsBackstagePass(item);
-
-        private static bool IsAgedBrie(Item item) => item.Name == "Aged Brie";
-        
-        private static bool IsNotAgedBrie(Item item) => !IsAgedBrie(item);
-
-        private static bool SellByDateHasPassed(Item item) => item.SellIn < 0;
-
-        private static bool AreLessThan5DaysLeft(Item item) => item.SellIn < 6;
-
-        private static bool AreLessThan10DaysLeft(Item item) => item.SellIn < 11;
-
-        private static bool QualityIsBelowMaximum(Item item) => item.Quality < 50;
-
-        private static bool QualityIsAboveMinimum(Item item) => item.Quality > 0;
-
-        private static int DecreaseSellIn(Item item) => item.SellIn -= 1;
-
-        private static int IncrementQuality(Item item)
-        {
-            if (QualityIsBelowMaximum(item))
-            {
-                return item.Quality += 1;    
-            }
-
-            return item.Quality;
-        }
-
-        private static int DecrementQuality(Item item)
-        {
-            if (IsNotSulfuras(item) && QualityIsAboveMinimum(item))
-            {
-                return item.Quality -= 1;    
-            }
-
-            return item.Quality;
         }
     }
 }
