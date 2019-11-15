@@ -2,20 +2,19 @@ namespace GildedRose.Products
 {
     public class AgedBrie : BaseItem, IItemBehaviour
     {
-        public AgedBrie(Item item)
+        public AgedBrie(Item item) : base(item)
         {
-            Item = item;
         }
 
         public void Iterate()
         {
-            IncrementQuality(Item);   
+            Item.IncrementQuality();   
             
-            DecreaseSellIn(Item);
+            Item.DecreaseSellIn();
 
-            if (SellByDateHasPassed(Item))
+            if (Item.SellByDateHasPassed())
             {
-                IncrementQuality(Item);
+                Item.IncrementQuality();
             }
         }
     }

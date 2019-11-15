@@ -2,9 +2,8 @@ namespace GildedRose.Products
 {
     public class Sulfuras : BaseItem, IItemBehaviour
     {
-        public Sulfuras(Item item)
+        public Sulfuras(Item item) : base(item)
         {
-            Item = item;
         }
 
         public void Iterate()

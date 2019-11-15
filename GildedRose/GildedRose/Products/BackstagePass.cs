@@ -2,28 +2,27 @@ namespace GildedRose.Products
 {
     public class BackstagePass : BaseItem, IItemBehaviour
     {
-        public BackstagePass(Item item)
+        public BackstagePass(Item item) : base(item)
         {
-            Item = item;
         }
 
         public void Iterate()
         {
-            IncrementQuality(Item);
+            Item.IncrementQuality();
             
-            if (AreLessThan10DaysLeft(Item))
+            if (Item.AreLessThan10DaysLeft())
             {
-                IncrementQuality(Item);
+                Item.IncrementQuality();
             }
 
-            if (AreLessThan5DaysLeft(Item))
+            if (Item.AreLessThan5DaysLeft())
             {
-                IncrementQuality(Item);
+                Item.IncrementQuality();
             }
 
-            DecreaseSellIn(Item);
+            Item.DecreaseSellIn();
 
-            if (SellByDateHasPassed(Item))
+            if (Item.SellByDateHasPassed())
             {
                 Item.Quality = 0;
             }

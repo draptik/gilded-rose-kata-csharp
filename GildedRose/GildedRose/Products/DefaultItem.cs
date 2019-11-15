@@ -2,20 +2,19 @@ namespace GildedRose.Products
 {
     public class DefaultItem : BaseItem, IItemBehaviour
     {
-        public DefaultItem(Item item)
+        public DefaultItem(Item item) : base(item)
         {
-            Item = item;
         }
 
         public void Iterate()
         {
-            DecrementQuality(Item);
+            Item.DecrementQuality();
             
-            DecreaseSellIn(Item);
+            Item.DecreaseSellIn();
 
-            if (SellByDateHasPassed(Item))
+            if (Item.SellByDateHasPassed())
             {
-                DecrementQuality(Item);
+                Item.DecrementQuality();
             }
         }
     }
