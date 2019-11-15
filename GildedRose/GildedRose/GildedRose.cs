@@ -14,11 +14,11 @@ namespace GildedRose
         {
             foreach (var item in Items)
             {
-                if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                if (IsNotAgedBrie(item) && IsNotBackstagePass(item))
                 {
                     if (QualityIsAboveMinimum(item))
                     {
-                        if (item.Name != "Sulfuras, Hand of Ragnaros")
+                        if (IsNotSulfuras(item))
                         {
                             DecrementQuality(item);
                         }
@@ -30,7 +30,7 @@ namespace GildedRose
                     {
                         IncrementQuality(item);
 
-                        if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                        if (IsBackstagePass(item))
                         {
                             if (AreLessThan10DaysLeft(item))
                             {
@@ -51,20 +51,20 @@ namespace GildedRose
                     }
                 }
 
-                if (item.Name != "Sulfuras, Hand of Ragnaros")
+                if (IsNotSulfuras(item))
                 {
                     DecreaseSellIn(item);
                 }
 
                 if (SellByDateHasPassed(item))
                 {
-                    if (item.Name != "Aged Brie")
+                    if (IsNotAgedBrie(item))
                     {
-                        if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                        if (IsNotBackstagePass(item))
                         {
                             if (QualityIsAboveMinimum(item))
                             {
-                                if (item.Name != "Sulfuras, Hand of Ragnaros")
+                                if (IsNotSulfuras(item))
                                 {
                                     DecrementQuality(item);
                                 }
@@ -85,6 +85,14 @@ namespace GildedRose
                 }
             }
         }
+
+        private static bool IsBackstagePass(Item item) => item.Name == "Backstage passes to a TAFKAL80ETC concert";
+
+        private static bool IsNotSulfuras(Item item) => item.Name != "Sulfuras, Hand of Ragnaros";
+
+        private static bool IsNotBackstagePass(Item item) => !IsBackstagePass(item);
+
+        private static bool IsNotAgedBrie(Item item) => item.Name != "Aged Brie";
 
         private static bool SellByDateHasPassed(Item item) => item.SellIn < 0;
 
