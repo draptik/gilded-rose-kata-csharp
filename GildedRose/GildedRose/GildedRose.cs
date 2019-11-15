@@ -42,10 +42,7 @@ namespace GildedRose
                 }
                 else
                 {
-                    if (QualityIsAboveMinimum(item))
-                    {
-                        DecrementQuality(item);
-                    }
+                    DecrementQuality(item);
                 }
 
                 if (IsNotSulfuras(item))
@@ -60,10 +57,7 @@ namespace GildedRose
                     {
                         if (IsNotBackstagePass(item))
                         {
-                            if (QualityIsAboveMinimum(item))
-                            {
-                                DecrementQuality(item);
-                            }
+                            DecrementQuality(item);
                         }
                         else
                         {
@@ -107,7 +101,7 @@ namespace GildedRose
 
         private static int DecrementQuality(Item item)
         {
-            if (IsNotSulfuras(item))
+            if (IsNotSulfuras(item) && QualityIsAboveMinimum(item))
             {
                 return item.Quality -= 1;    
             }
