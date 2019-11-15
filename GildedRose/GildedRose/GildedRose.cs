@@ -16,21 +16,18 @@ namespace GildedRose
             {
                 if (IsAgedBrie(item) || IsBackstagePass(item))
                 {
-                    if (QualityIsBelowMaximum(item))
+                    IncrementQuality(item);
+
+                    if (IsBackstagePass(item))
                     {
-                        IncrementQuality(item);
-
-                        if (IsBackstagePass(item))
+                        if (AreLessThan10DaysLeft(item))
                         {
-                            if (AreLessThan10DaysLeft(item))
-                            {
-                                IncrementQuality(item);
-                            }
+                            IncrementQuality(item);
+                        }
 
-                            if (AreLessThan5DaysLeft(item))
-                            {
-                                IncrementQuality(item);
-                            }
+                        if (AreLessThan5DaysLeft(item))
+                        {
+                            IncrementQuality(item);
                         }
                     }
                 }
