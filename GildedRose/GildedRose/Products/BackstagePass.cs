@@ -8,8 +8,20 @@ namespace GildedRose.Products
 
         public void Iterate()
         {
+            IncreaseQuality();
+
+            Item.DecreaseSellIn();
+
+            if (Item.SellByDateHasPassed())
+            {
+                Item.Quality = 0;
+            }
+        }
+
+        private void IncreaseQuality()
+        {
             Item.IncrementQuality();
-            
+
             if (Item.AreLessThan10DaysLeft())
             {
                 Item.IncrementQuality();
@@ -18,13 +30,6 @@ namespace GildedRose.Products
             if (Item.AreLessThan5DaysLeft())
             {
                 Item.IncrementQuality();
-            }
-
-            Item.DecreaseSellIn();
-
-            if (Item.SellByDateHasPassed())
-            {
-                Item.Quality = 0;
             }
         }
     }
