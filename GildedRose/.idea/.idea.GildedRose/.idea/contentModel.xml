@@ -36,6 +36,20 @@
           </e>
         </e>
       </e>
+      <e p="GildedRose.Fsharp" t="IncludeRecursive">
+        <e p="Domain.fs" t="Include" />
+        <e p="Dummy.fs" t="Include" />
+        <e p="GildedRose.Fsharp.fsproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+      </e>
+      <e p="GildedRose.Fsharp.Tests" t="IncludeRecursive">
+        <e p="DomainTests.fs" t="Include" />
+        <e p="DummySmokeTests.fs" t="Include" />
+        <e p="GildedRose.Fsharp.Tests.fsproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+      </e>
       <e p="GildedRose.Tests" t="IncludeRecursive">
         <e p="GildedRose.Tests.csproj" t="IncludeRecursive" />
         <e p="GildedRoseTests.GoldenMaster.approved.txt" t="Include" />
