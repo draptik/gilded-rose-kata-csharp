@@ -1,8 +1,8 @@
 namespace GildedRose.Products
 {
-    public class DefaultItem : BaseItem, IItemBehaviour
+    public class NormalItem : BaseItem, IItemBehaviour
     {
-        public DefaultItem(Item item) : base(item)
+        public NormalItem(Item item) : base(item)
         {
         }
 

@@ -12,7 +12,7 @@ namespace GildedRose
                 var s when s.StartsWith("Backstage") => new BackstagePass(item),
                 var s when s.StartsWith("Sulfuras") => new Sulfuras(item),
                 var s when s.StartsWith("Conjured") => new Conjured(item),
-                _ => new DefaultItem(item)
+                _ => new NormalItem(item)
             };
         }
     }
