@@ -14,17 +14,7 @@ namespace GildedRose
         {
             foreach (var item in Items)
             {
-                if (IsNotAgedBrie(item) && IsNotBackstagePass(item))
-                {
-                    if (QualityIsAboveMinimum(item))
-                    {
-                        if (IsNotSulfuras(item))
-                        {
-                            DecrementQuality(item);
-                        }
-                    }
-                }
-                else
+                if (IsAgedBrie(item) || IsBackstagePass(item))
                 {
                     if (QualityIsBelowMaximum(item))
                     {
@@ -50,12 +40,20 @@ namespace GildedRose
                         }
                     }
                 }
+                else
+                {
+                    if (QualityIsAboveMinimum(item))
+                    {
+                        DecrementQuality(item);
+                    }
+                }
 
                 if (IsNotSulfuras(item))
                 {
                     DecreaseSellIn(item);
                 }
 
+                
                 if (SellByDateHasPassed(item))
                 {
                     if (IsNotAgedBrie(item))
@@ -64,10 +62,7 @@ namespace GildedRose
                         {
                             if (QualityIsAboveMinimum(item))
                             {
-                                if (IsNotSulfuras(item))
-                                {
-                                    DecrementQuality(item);
-                                }
+                                DecrementQuality(item);
                             }
                         }
                         else
@@ -92,7 +87,9 @@ namespace GildedRose
 
         private static bool IsNotBackstagePass(Item item) => !IsBackstagePass(item);
 
-        private static bool IsNotAgedBrie(Item item) => item.Name != "Aged Brie";
+        private static bool IsAgedBrie(Item item) => item.Name == "Aged Brie";
+        
+        private static bool IsNotAgedBrie(Item item) => !IsAgedBrie(item);
 
         private static bool SellByDateHasPassed(Item item) => item.SellIn < 0;
 
@@ -108,6 +105,14 @@ namespace GildedRose
 
         private static int IncrementQuality(Item item) => item.Quality += 1;
 
-        private static int DecrementQuality(Item item) => item.Quality -= 1;
+        private static int DecrementQuality(Item item)
+        {
+            if (IsNotSulfuras(item))
+            {
+                return item.Quality -= 1;    
+            }
+
+            return item.Quality;
+        }
     }
 }
