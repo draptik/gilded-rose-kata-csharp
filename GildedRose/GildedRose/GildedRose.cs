@@ -16,7 +16,7 @@ namespace GildedRose
             {
                 if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    if (item.Quality > 0)
+                    if (QualityIsAboveMinimum(item))
                     {
                         if (item.Name != "Sulfuras, Hand of Ragnaros")
                         {
@@ -26,7 +26,7 @@ namespace GildedRose
                 }
                 else
                 {
-                    if (item.Quality < 50)
+                    if (QualityIsBelowMaximum(item))
                     {
                         IncrementQuality(item);
 
@@ -34,7 +34,7 @@ namespace GildedRose
                         {
                             if (item.SellIn < 11)
                             {
-                                if (item.Quality < 50)
+                                if (QualityIsBelowMaximum(item))
                                 {
                                     IncrementQuality(item);
                                 }
@@ -42,7 +42,7 @@ namespace GildedRose
 
                             if (item.SellIn < 6)
                             {
-                                if (item.Quality < 50)
+                                if (QualityIsBelowMaximum(item))
                                 {
                                     IncrementQuality(item);
                                 }
@@ -62,7 +62,7 @@ namespace GildedRose
                     {
                         if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
                         {
-                            if (item.Quality > 0)
+                            if (QualityIsAboveMinimum(item))
                             {
                                 if (item.Name != "Sulfuras, Hand of Ragnaros")
                                 {
@@ -77,7 +77,7 @@ namespace GildedRose
                     }
                     else
                     {
-                        if (item.Quality < 50)
+                        if (QualityIsBelowMaximum(item))
                         {
                             IncrementQuality(item);
                         }
@@ -85,6 +85,10 @@ namespace GildedRose
                 }
             }
         }
+
+        private static bool QualityIsBelowMaximum(Item item) => item.Quality < 50;
+
+        private static bool QualityIsAboveMinimum(Item item) => item.Quality > 0;
 
         private static int DecreaseSellIn(Item item) => item.SellIn -= 1;
 
