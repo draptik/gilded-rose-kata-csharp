@@ -24,18 +24,12 @@ namespace GildedRose
                         {
                             if (AreLessThan10DaysLeft(item))
                             {
-                                if (QualityIsBelowMaximum(item))
-                                {
-                                    IncrementQuality(item);
-                                }
+                                IncrementQuality(item);
                             }
 
                             if (AreLessThan5DaysLeft(item))
                             {
-                                if (QualityIsBelowMaximum(item))
-                                {
-                                    IncrementQuality(item);
-                                }
+                                IncrementQuality(item);
                             }
                         }
                     }
@@ -66,10 +60,7 @@ namespace GildedRose
                     }
                     else
                     {
-                        if (QualityIsBelowMaximum(item))
-                        {
-                            IncrementQuality(item);
-                        }
+                        IncrementQuality(item);
                     }
                 }
             }
@@ -97,7 +88,15 @@ namespace GildedRose
 
         private static int DecreaseSellIn(Item item) => item.SellIn -= 1;
 
-        private static int IncrementQuality(Item item) => item.Quality += 1;
+        private static int IncrementQuality(Item item)
+        {
+            if (QualityIsBelowMaximum(item))
+            {
+                return item.Quality += 1;    
+            }
+
+            return item.Quality;
+        }
 
         private static int DecrementQuality(Item item)
         {
