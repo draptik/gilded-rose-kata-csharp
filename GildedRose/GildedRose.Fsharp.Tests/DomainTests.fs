@@ -9,8 +9,8 @@ open Swensen.Unquote
 
 [<Fact>]
 let ``decreaseQualityByOne`` () =
-    let input = Quality 1
-    let expected = Quality 0
+    let input = UncheckedQuality 1
+    let expected = UncheckedQuality 0
     let actual = Domain.decreaseQualityByOne input
     test <@ actual = expected @>
 

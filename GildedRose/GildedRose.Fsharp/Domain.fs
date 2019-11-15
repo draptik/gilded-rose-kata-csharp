@@ -11,12 +11,12 @@ module GildedRose.Fsharp.Domain
             
 type Name = Name of string
 type SellIn = SellIn of int
-type Quality = Quality of int
+type UncheckedQuality = UncheckedQuality of int
 
 type Item = {
     Name: Name
     SellIn: SellIn
-    Quality: Quality
+    Quality: UncheckedQuality
 }
 
 let decreaseSellInByOneDay previous =
@@ -24,11 +24,11 @@ let decreaseSellInByOneDay previous =
     SellIn (x - 1)
 
 let decreaseQuality previous amount =
-    let (Quality x) = previous
+    let (UncheckedQuality x) = previous
     if x < 0 then
-        Quality (0)
+        UncheckedQuality (0)
     else
-        Quality (x - amount)
+        UncheckedQuality (x - amount)
 
 let decreaseQualityByOne previous =
     1 |> decreaseQuality previous  
