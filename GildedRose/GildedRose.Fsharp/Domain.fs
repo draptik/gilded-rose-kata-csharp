@@ -38,10 +38,9 @@ let decreaseSellInByOneDay previous =
 
 let decreaseQuality previous amount =
     let (Quality x) = previous
-    if x < 0 then
-        Quality.create (UncheckedQuality 0)
-    else
-        Quality.create (UncheckedQuality (x - amount))
+    (x - amount)
+    |> UncheckedQuality
+    |> Quality.create
 
 let decreaseQualityByOne previous =
     1 |> decreaseQuality previous  
