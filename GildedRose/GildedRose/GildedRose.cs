@@ -47,20 +47,20 @@ namespace GildedRose
                 
                 if (SellByDateHasPassed(item))
                 {
-                    if (IsNotAgedBrie(item))
+                    if (IsAgedBrie(item))
                     {
-                        if (IsNotBackstagePass(item))
-                        {
-                            DecrementQuality(item);
-                        }
-                        else
-                        {
-                            item.Quality = 0;
-                        }
+                        IncrementQuality(item);
                     }
                     else
                     {
-                        IncrementQuality(item);
+                        if (IsBackstagePass(item))
+                        {
+                            item.Quality = 0;
+                        }
+                        else
+                        {
+                            DecrementQuality(item);
+                        }
                     }
                 }
             }
