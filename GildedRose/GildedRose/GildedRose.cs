@@ -32,7 +32,7 @@ namespace GildedRose
 
                         if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
-                            if (item.SellIn < 11)
+                            if (AreLessThan10DaysLeft(item))
                             {
                                 if (QualityIsBelowMaximum(item))
                                 {
@@ -40,7 +40,7 @@ namespace GildedRose
                                 }
                             }
 
-                            if (item.SellIn < 6)
+                            if (AreLessThan5DaysLeft(item))
                             {
                                 if (QualityIsBelowMaximum(item))
                                 {
@@ -56,7 +56,7 @@ namespace GildedRose
                     DecreaseSellIn(item);
                 }
 
-                if (item.SellIn < 0)
+                if (SellByDateHasPassed(item))
                 {
                     if (item.Name != "Aged Brie")
                     {
@@ -85,6 +85,12 @@ namespace GildedRose
                 }
             }
         }
+
+        private static bool SellByDateHasPassed(Item item) => item.SellIn < 0;
+
+        private static bool AreLessThan5DaysLeft(Item item) => item.SellIn < 6;
+
+        private static bool AreLessThan10DaysLeft(Item item) => item.SellIn < 11;
 
         private static bool QualityIsBelowMaximum(Item item) => item.Quality < 50;
 
