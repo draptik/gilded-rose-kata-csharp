@@ -1,6 +1,6 @@
 namespace GildedRose.Products
 {
-    public class Conjured : BaseItem, IItemBehaviour
+    public class Conjured : BaseItem, ICanIterate
     {
         public Conjured(Item item) : base(item)
         {

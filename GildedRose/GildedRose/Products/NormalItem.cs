@@ -1,6 +1,6 @@
 namespace GildedRose.Products
 {
-    public class NormalItem : BaseItem, IItemBehaviour
+    public class NormalItem : BaseItem, ICanIterate
     {
         public NormalItem(Item item) : base(item)
         {

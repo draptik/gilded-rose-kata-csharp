@@ -1,6 +1,6 @@
 namespace GildedRose.Products
 {
-    public class AgedBrie : BaseItem, IItemBehaviour
+    public class AgedBrie : BaseItem, ICanIterate
     {
         public AgedBrie(Item item) : base(item)
         {

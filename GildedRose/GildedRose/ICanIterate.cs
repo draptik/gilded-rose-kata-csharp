@@ -1,6 +1,6 @@
 namespace GildedRose
 {
-    public interface IItemBehaviour
+    public interface ICanIterate
     {
         void Iterate();
     }

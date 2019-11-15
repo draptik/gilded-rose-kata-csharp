@@ -1,6 +1,6 @@
 namespace GildedRose.Products
 {
-    public class BackstagePass : BaseItem, IItemBehaviour
+    public class BackstagePass : BaseItem, ICanIterate
     {
         public BackstagePass(Item item) : base(item)
         {
