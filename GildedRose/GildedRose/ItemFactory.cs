@@ -1,20 +1,18 @@
+using GildedRose.Products;
+
 namespace GildedRose
 {
     public static class ItemFactory
     {
         public static IItemBehaviour ToConcreteItem(Item item)
         {
-            switch (item.Name)
+            return item.Name switch
             {
-                case "Aged Brie":
-                    return new AgedBrie(item);
-                case "Backstage passes to a TAFKAL80ETC concert":
-                    return new BackstagePass(item);
-                case "Sulfuras, Hand of Ragnaros":
-                    return new Sulfuras(item);
-                default:
-                    return new DefaultItem(item);
-            }
+                "Aged Brie" => (IItemBehaviour) new AgedBrie(item),
+                "Backstage passes to a TAFKAL80ETC concert" => new BackstagePass(item),
+                "Sulfuras, Hand of Ragnaros" => new Sulfuras(item),
+                _ => new DefaultItem(item)
+            };
         }
     }
 }

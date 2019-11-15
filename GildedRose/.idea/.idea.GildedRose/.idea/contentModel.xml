@@ -11,12 +11,18 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="GildedRose" t="IncludeRecursive">
         <e p="Api.cs" t="Include" />
-        <e p="BaseItem.cs" t="Include" />
         <e p="GildedRose.cs" t="Include" />
         <e p="GildedRose.csproj" t="IncludeRecursive" />
         <e p="IItemBehaviour.cs" t="Include" />
         <e p="Item.cs" t="Include" />
         <e p="ItemFactory.cs" t="Include" />
+        <e p="Products" t="Include">
+          <e p="AgedBrie.cs" t="Include" />
+          <e p="BackstagePass.cs" t="Include" />
+          <e p="BaseItem.cs" t="Include" />
+          <e p="DefaultItem.cs" t="Include" />
+          <e p="Sulfuras.cs" t="Include" />
+        </e>
         <e p="Program.cs" t="Include" />
         <e p="README.md" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
