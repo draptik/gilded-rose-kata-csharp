@@ -39,7 +39,7 @@ let ``decreasing SellIn by one day`` (input, expected) =
     test <@ actual = expected @>
 
 [<Fact>]
-let ``aging a product by 1 day works`` () =
+let ``aging a product by 1 day reduces SellIn and Quality by 1 (happy case)`` () =
     let input =
         {
             Name = Name "foo"
