@@ -105,7 +105,7 @@ let ``Quality decreases twice as fast once the SellIn date has passed`` () =
 [<Fact>]
 let ``Quality decreases twice as fast once the SellIn date has passed except for 'Aged Brie' then it increases`` () =
     let input =
-        AgeBrie {
+        AgedBrie {
             Name = Name "Aged Brie 1900"
             SellIn = SellIn -1
             Quality = Quality 6
@@ -116,7 +116,7 @@ let ``Quality decreases twice as fast once the SellIn date has passed except for
         |> ageByOneDay
     
     let expected =
-        AgeBrie {
+        AgedBrie {
             Name = Name "Aged Brie 1900"
             SellIn = SellIn -2
             Quality = Quality 7

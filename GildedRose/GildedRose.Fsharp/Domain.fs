@@ -63,7 +63,7 @@ let hasSellByDatePassed item =
 
 type Product =
     | Normal of ValidItem
-    | AgeBrie of ValidItem
+    | AgedBrie of ValidItem
     
 
 type AgeByOneDay = Product -> Product
@@ -83,13 +83,13 @@ let ageByOneDay : AgeByOneDay =
                       Quality = quality
                 }
                 
-        | AgeBrie item ->
+        | AgedBrie item ->
             let quality =
                 if hasSellByDatePassed item then
                     item.Quality |> increaseQualityByOne
                 else
                     item.Quality |> decreaseQualityByOne
-            AgeBrie
+            AgedBrie
                 { item with
                       SellIn = item.SellIn |> decreaseSellInByOneDay
                       Quality = quality
