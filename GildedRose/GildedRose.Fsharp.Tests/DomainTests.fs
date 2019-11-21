@@ -61,7 +61,7 @@ let ``a valid unchecked item is converted to a checked item correctly`` () =
 [<Fact>]
 let ``aging a product by 1 day reduces SellIn and Quality by 1 (happy case)`` () =
     let input =
-        {
+        Normal {
             Name = Name "foo"
             SellIn = SellIn 10
             Quality = Quality 5
@@ -72,7 +72,7 @@ let ``aging a product by 1 day reduces SellIn and Quality by 1 (happy case)`` ()
         |> ageByOneDay
     
     let expected =
-        {
+        Normal {
             Name = Name "foo"
             SellIn = SellIn 9
             Quality = Quality 4
@@ -83,7 +83,7 @@ let ``aging a product by 1 day reduces SellIn and Quality by 1 (happy case)`` ()
 [<Fact>]
 let ``Quality decreases twice as fast once the SellIn date has passed`` () =
     let input =
-        {
+        Normal {
             Name = Name "foo"
             SellIn = SellIn -1
             Quality = Quality 6
@@ -94,7 +94,7 @@ let ``Quality decreases twice as fast once the SellIn date has passed`` () =
         |> ageByOneDay
     
     let expected =
-        {
+        Normal {
             Name = Name "foo"
             SellIn = SellIn -2
             Quality = Quality 4
@@ -105,8 +105,8 @@ let ``Quality decreases twice as fast once the SellIn date has passed`` () =
 [<Fact>]
 let ``Quality decreases twice as fast once the SellIn date has passed except for 'Aged Brie' then it increases`` () =
     let input =
-        {
-            Name = Name "Aged Brie"
+        AgeBrie {
+            Name = Name "Aged Brie 1900"
             SellIn = SellIn -1
             Quality = Quality 6
         }
@@ -116,7 +116,7 @@ let ``Quality decreases twice as fast once the SellIn date has passed except for
         |> ageByOneDay
     
     let expected =
-        {
+        AgeBrie {
             Name = Name "Aged Brie"
             SellIn = SellIn -2
             Quality = Quality 7

@@ -52,18 +52,36 @@ let isSellInPassed sellIn =
 let hasSellByDatePassed item =
     item.SellIn |> isSellInPassed
 
-type AgeByOneDay = ValidItem -> ValidItem
+type Product =
+    | Normal of ValidItem
+    | AgeBrie of ValidItem
+    
+
+type AgeByOneDay = Product -> Product
 let ageByOneDay : AgeByOneDay =
     fun item ->
-        let quality =
-            item.Quality |> decreaseQualityByOne
-            
-        {
-            Name = item.Name
-            SellIn = item.SellIn |> decreaseSellInByOneDay
-            Quality = quality 
-        }
+        match item with
+        | Normal item ->
+            let quality =
+                item.Quality |> decreaseQualityByOne
+            Normal
+                {
+                    Name = item.Name
+                    SellIn = item.SellIn |> decreaseSellInByOneDay
+                    Quality = quality 
+                }
+        | AgeBrie item ->
+            let quality =
+                item.Quality |> decreaseQualityByOne
+            Normal
+                {
+                    Name = item.Name
+                    SellIn = item.SellIn |> decreaseSellInByOneDay
+                    Quality = quality 
+                }
 
+            
+    
 // This is NOT a validation!
 type NormalizeItem = UncheckedItem -> ValidItem
 let normalizeItem : NormalizeItem =
