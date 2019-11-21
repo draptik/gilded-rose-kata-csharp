@@ -101,3 +101,25 @@ let ``Quality decreases twice as fast once the SellIn date has passed`` () =
         }
         
     test <@ actual = expected @>
+    
+[<Fact>]
+let ``Quality decreases twice as fast once the SellIn date has passed except for 'Aged Brie' then it increases`` () =
+    let input =
+        {
+            Name = Name "Aged Brie"
+            SellIn = SellIn -1
+            Quality = Quality 6
+        }
+        
+    let actual =
+        input
+        |> ageByOneDay
+    
+    let expected =
+        {
+            Name = Name "Aged Brie"
+            SellIn = SellIn -2
+            Quality = Quality 7
+        }
+        
+    test <@ actual = expected @>    
