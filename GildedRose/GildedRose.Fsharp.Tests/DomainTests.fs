@@ -117,7 +117,7 @@ let ``Quality decreases twice as fast once the SellIn date has passed except for
     
     let expected =
         AgeBrie {
-            Name = Name "Aged Brie"
+            Name = Name "Aged Brie 1900"
             SellIn = SellIn -2
             Quality = Quality 7
         }
