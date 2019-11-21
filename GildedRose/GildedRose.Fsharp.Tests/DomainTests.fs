@@ -37,6 +37,26 @@ let ``decreasing SellIn by one day`` (input, expected) =
     let expected = SellIn expected
 
     test <@ actual = expected @>
+    
+[<Fact>]
+let ``a valid unchecked item is converted to a checked item correctly`` () =
+    let uncheckedItem: UncheckedItem =
+        {
+            Name = Name "foo"
+            SellIn = SellIn 5
+            Quality = UncheckedQuality 10
+        }
+        
+    let normalizedItem = uncheckedItem |> normalizeItem
+    
+    let expected =
+        {
+            Name = Name "foo"
+            SellIn = SellIn 5
+            Quality = Quality 10
+        }
+        
+    test <@ normalizedItem = expected @>
 
 [<Fact>]
 let ``aging a product by 1 day reduces SellIn and Quality by 1 (happy case)`` () =
@@ -61,21 +81,23 @@ let ``aging a product by 1 day reduces SellIn and Quality by 1 (happy case)`` ()
     test <@ actual = expected @>
     
 [<Fact>]
-let ``a valid unchecked item is converted to a checked item correctly`` () =
-    let uncheckedItem: UncheckedItem =
+let ``Quality decreases twice as fast once the SellIn date has passed`` () =
+    let input =
         {
             Name = Name "foo"
-            SellIn = SellIn 5
-            Quality = UncheckedQuality 10
+            SellIn = SellIn -1
+            Quality = Quality 6
         }
         
-    let normalizedItem = uncheckedItem |> normalizeItem
+    let actual =
+        input
+        |> ageByOneDay
     
     let expected =
         {
             Name = Name "foo"
-            SellIn = SellIn 5
-            Quality = Quality 10
+            SellIn = SellIn -2
+            Quality = Quality 4
         }
         
-    test <@ normalizedItem = expected @>
+    test <@ actual = expected @>
