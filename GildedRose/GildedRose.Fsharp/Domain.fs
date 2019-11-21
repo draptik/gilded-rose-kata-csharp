@@ -61,6 +61,7 @@ let ageByOneDay : AgeByOneDay =
             Quality = item.Quality |> decreaseQualityByOne
         }
 
+// This is NOT a validation!
 type NormalizeItem = UncheckedItem -> ValidItem
 let normalizeItem : NormalizeItem =
      
