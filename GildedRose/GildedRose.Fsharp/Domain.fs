@@ -78,12 +78,11 @@ let ageByOneDay : AgeByOneDay =
                     item.Quality |> decreaseQualityByOne
 
             Normal
-                {
-                    Name = item.Name
-                    SellIn = item.SellIn |> decreaseSellInByOneDay
-                    Quality = quality 
+                { item with
+                      SellIn = item.SellIn |> decreaseSellInByOneDay
+                      Quality = quality
                 }
-
+                
         | AgeBrie item ->
             let quality =
                 if hasSellByDatePassed item then
@@ -91,10 +90,9 @@ let ageByOneDay : AgeByOneDay =
                 else
                     item.Quality |> decreaseQualityByOne
             AgeBrie
-                {
-                    Name = item.Name
-                    SellIn = item.SellIn |> decreaseSellInByOneDay
-                    Quality = quality 
+                { item with
+                      SellIn = item.SellIn |> decreaseSellInByOneDay
+                      Quality = quality
                 }
             
     
