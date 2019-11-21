@@ -42,8 +42,17 @@ let decreaseQuality previous amount =
     |> UncheckedQuality
     |> Quality.create
 
+let increaseQuality previous amount =
+    let (Quality x) = previous
+    (x + amount)
+    |> UncheckedQuality
+    |> Quality.create
+
 let decreaseQualityByOne previous =
     1 |> decreaseQuality previous  
+
+let increaseQualityByOne previous =
+    1 |> increaseQuality previous  
 
 let isSellInPassed sellIn =
     let (SellIn x) = sellIn
@@ -64,15 +73,7 @@ let ageByOneDay : AgeByOneDay =
         | Normal item ->
             let quality =
                 item.Quality |> decreaseQualityByOne
-            Normal
-                {
-                    Name = item.Name
-                    SellIn = item.SellIn |> decreaseSellInByOneDay
-                    Quality = quality 
-                }
-        | AgeBrie item ->
-            let quality =
-                item.Quality |> decreaseQualityByOne
+
             Normal
                 {
                     Name = item.Name
@@ -80,6 +81,18 @@ let ageByOneDay : AgeByOneDay =
                     Quality = quality 
                 }
 
+        | AgeBrie item ->
+            let quality =
+                if hasSellByDatePassed item then
+                    item.Quality |> increaseQualityByOne
+                else
+                    item.Quality |> decreaseQualityByOne
+            AgeBrie
+                {
+                    Name = item.Name
+                    SellIn = item.SellIn |> decreaseSellInByOneDay
+                    Quality = quality 
+                }
             
     
 // This is NOT a validation!
