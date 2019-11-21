@@ -55,10 +55,13 @@ let hasSellByDatePassed item =
 type AgeByOneDay = ValidItem -> ValidItem
 let ageByOneDay : AgeByOneDay =
     fun item ->
+        let quality =
+            item.Quality |> decreaseQualityByOne
+            
         {
             Name = item.Name
             SellIn = item.SellIn |> decreaseSellInByOneDay
-            Quality = item.Quality |> decreaseQualityByOne
+            Quality = quality 
         }
 
 // This is NOT a validation!
