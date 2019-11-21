@@ -72,7 +72,10 @@ let ageByOneDay : AgeByOneDay =
         match item with
         | Normal item ->
             let quality =
-                item.Quality |> decreaseQualityByOne
+                if hasSellByDatePassed item then
+                    item.Quality |> decreaseQualityByOne |> decreaseQualityByOne
+                else
+                    item.Quality |> decreaseQualityByOne
 
             Normal
                 {
