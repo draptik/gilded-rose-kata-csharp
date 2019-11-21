@@ -65,7 +65,6 @@ type Product =
     | Normal of ValidItem
     | AgedBrie of ValidItem
     
-
 type AgeByOneDay = Product -> Product
 let ageByOneDay : AgeByOneDay =
     fun item ->
