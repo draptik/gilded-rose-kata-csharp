@@ -93,17 +93,3 @@ let ageByOneDay : AgeByOneDay =
                       SellIn = item.SellIn |> decreaseSellInByOneDay
                       Quality = quality
                 }
-            
-    
-// This is NOT a validation!
-type NormalizeItem = UncheckedItem -> ValidItem
-let normalizeItem : NormalizeItem =
-     
-    fun x ->
-        let (uncheckedItem: UncheckedItem) = x
-        let (uncheckedQuality: UncheckedQuality) = uncheckedItem.Quality
-        {
-            Name = x.Name
-            SellIn = x.SellIn
-            Quality = Quality.create (uncheckedQuality)
-        }
