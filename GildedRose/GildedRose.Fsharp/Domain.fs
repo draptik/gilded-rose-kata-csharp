@@ -72,6 +72,7 @@ type Product =
     | AgedBrie of ValidItem
     | Sulfuras of ValidItem
     | BackstagePass of ValidItem
+    | Conjured of ValidItem
     
 type AgeByOneDay = Product -> Product
 let ageByOneDay : AgeByOneDay =
@@ -114,6 +115,15 @@ let ageByOneDay : AgeByOneDay =
                 else
                     item.Quality |> increaseQualityByOne
             BackstagePass
+                { item with
+                    SellIn = item.SellIn |> decreaseSellInByOneDay
+                    Quality = quality   
+                }
+                
+        | Conjured item ->
+            let quality =
+                item.Quality |> decreaseQualityByOne |> decreaseQualityByOne
+            Conjured
                 { item with
                     SellIn = item.SellIn |> decreaseSellInByOneDay
                     Quality = quality   

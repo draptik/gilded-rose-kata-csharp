@@ -146,4 +146,26 @@ let ``Backstage passes increases as SellIn day approaches`` (sellIn, quality, ex
             Quality = Quality expectedQuality
         }
     
-    test <@ actual = expected @>    
+    test <@ actual = expected @>
+    
+[<Fact>]
+let ``Conjured degrade in Quality twice as fast as normal items`` () =
+    let input =
+        Conjured {
+            Name = Name "Conjured Mana Cake"
+            SellIn = SellIn 3
+            Quality = Quality 6
+        }
+        
+    let actual =
+        input
+        |> ageByOneDay
+        
+    let expected =
+        Conjured {
+            Name = Name "Conjured Mana Cake"
+            SellIn = SellIn 2
+            Quality = Quality 4
+        }
+    
+    test <@ actual = expected @>        
