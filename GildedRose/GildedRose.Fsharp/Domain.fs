@@ -61,9 +61,17 @@ let isSellInPassed sellIn =
 let hasSellByDatePassed item =
     item.SellIn |> isSellInPassed
 
+let areLessThan5DaysLeft item =
+    item.SellIn < SellIn 6
+
+let areLessThan10DaysLeft item =
+    item.SellIn < SellIn 11
+    
 type Product =
     | Normal of ValidItem
     | AgedBrie of ValidItem
+    | Sulfuras of ValidItem
+    | BackstagePass of ValidItem
     
 type AgeByOneDay = Product -> Product
 let ageByOneDay : AgeByOneDay =
@@ -92,4 +100,21 @@ let ageByOneDay : AgeByOneDay =
                 { item with
                       SellIn = item.SellIn |> decreaseSellInByOneDay
                       Quality = quality
+                }
+        
+        | Sulfuras item ->
+            Sulfuras item
+            
+        | BackstagePass item ->
+            let quality =
+                if areLessThan5DaysLeft item then
+                    item.Quality |> increaseQualityByOne |> increaseQualityByOne |> increaseQualityByOne
+                else if areLessThan10DaysLeft item then
+                    item.Quality |> increaseQualityByOne |> increaseQualityByOne
+                else
+                    item.Quality |> increaseQualityByOne
+            BackstagePass
+                { item with
+                    SellIn = item.SellIn |> decreaseSellInByOneDay
+                    Quality = quality   
                 }
