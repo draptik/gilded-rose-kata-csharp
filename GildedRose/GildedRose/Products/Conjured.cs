@@ -19,12 +19,6 @@ namespace GildedRose.Products
             Item.DecrementQuality(); // <-- "twice"
             
             Item.DecreaseSellIn();
-
-            if (Item.SellByDateHasPassed())
-            {
-                Item.DecrementQuality();
-                Item.DecrementQuality(); // <-- Not sure if I understood the requirement correctly
-            }
         }
     }
 }
